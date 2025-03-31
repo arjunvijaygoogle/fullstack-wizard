@@ -11,7 +11,7 @@ const PingComponent = () => {
     const fetchPing = async () => {
       try {
         console.log(API_URL)
-        const res = await fetch(API_URL);
+        const res = await fetch(API_URL + 'ping');
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }

@@ -1,6 +1,7 @@
 import os
 from flask import Flask, jsonify, Response, request
 from flask_cors import CORS
+from database_gcp import connect, get_all_accounts
 
 def create_app():
   app = Flask(__name__)
@@ -22,7 +23,15 @@ def create_app():
   def hello_world():
       if request.method == 'OPTIONS':
           return Response(status=200) #respond to options preflight.
-      return "pong"
+      return query()
+
+  @app.route("/accounts", methods=['OPTIONS', 'GET'])
+  def get_all_account():
+      if request.method == 'OPTIONS':
+          return Response(status=200) #respond to options preflight.
+      
+      connector = connect()
+      return get_all_accounts(connector)
   
   return app
   
